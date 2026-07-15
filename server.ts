@@ -124,7 +124,7 @@ Return the quest details matching the required JSON schema structure. Make it hi
 // Weather API Proxy Route
 app.get("/api/weather/forecast", async (req, res) => {
   try {
-    const response = await fetch("https://api.data.gov.my/weather/forecast/", {
+    const response = await fetch("https://api.data.gov.my/weather/forecast", {
       headers: {
         "Accept": "application/json",
         "User-Agent": "QuestUI-App"

@@ -36,6 +36,11 @@ interface ForecastRecord {
 let memoryCacheData: ForecastRecord[] | null = null;
 let memoryCacheTimestamp: number | null = null;
 
+const WEATHER_API_ENDPOINTS = [
+  "https://api.data.gov.my/weather/forecast",
+  "/api/weather/forecast",
+];
+
 export default function WeatherForecastWidget() {
   const [records, setRecords] = useState<ForecastRecord[]>([]);
   const [loading, setLoading] = useState(false);
@@ -75,16 +80,37 @@ export default function WeatherForecastWidget() {
       if (!force && memoryCacheData && memoryCacheTimestamp && now - memoryCacheTimestamp < 5 * 60 * 1000) {
         fetched = memoryCacheData;
       } else {
-        const response = await fetch("/api/weather/forecast");
-        if (!response.ok) {
-          throw new Error(`Server responded with standing ${response.status}`);
+        let lastError: Error | null = null;
+        let data: unknown = null;
+
+        for (const endpoint of WEATHER_API_ENDPOINTS) {
+          try {
+            const response = await fetch(endpoint);
+
+            if (!response.ok) {
+              if (response.status === 404) {
+                lastError = new Error(`Server responded with standing ${response.status}`);
+                continue;
+              }
+
+              throw new Error(`Server responded with standing ${response.status}`);
+            }
+
+            data = await response.json();
+            break;
+          } catch (fetchErr: any) {
+            lastError = fetchErr instanceof Error ? fetchErr : new Error(String(fetchErr));
+          }
         }
-        const data = await response.json();
-        
+
+        if (data == null) {
+          throw lastError || new Error("Failed to establish scrying link to the sky kingdom.");
+        }
+
         if (!Array.isArray(data)) {
           throw new Error("Invalid forecast scroll structure received from high kingdom.");
         }
-        
+
         if (data.length === 0) {
           throw new Error("The celestial chronicle of forecasts is currently empty.");
         }
@@ -245,7 +271,7 @@ export default function WeatherForecastWidget() {
           </div>
           <div>
             <p className="font-heading text-sm text-quest-primary animate-pulse uppercase tracking-wider">Scrying local clouds...</p>
-            <p className="text-[10px] font-mono mt-1">Calling GET api.data.gov.my/weather/forecast/ ...</p>
+            <p className="text-[10px] font-mono mt-1">Calling GET api.data.gov.my/weather/forecast ...</p>
           </div>
         </div>
       )}
