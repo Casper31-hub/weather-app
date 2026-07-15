@@ -1,0 +1,6 @@
+{
+  "name": "QuestUI Design System",
+  "description": "An interactive medieval fantasy design system explorer, RPG-style quest generator, and component showcase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

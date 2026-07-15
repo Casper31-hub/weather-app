@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Georgia", "Palatino", "Book Antiqua", serif;
+  --font-sans: "Palatino", "Book Antiqua", "Georgia", serif;
+  --font-mono: "Fira Code", monospace;
+
+  --color-quest-bg: #1A0F0A;
+  --color-quest-surface: #2C1A10;
+  --color-quest-primary: #CA8A04;
+  --color-quest-secondary: #991B1B;
+  --color-quest-accent: #581C87;
+  --color-quest-success: #22C55E;
+  --color-quest-text: #F5E6D3;
+  --color-quest-muted: #BFA98A;
+  
+  --radius-quest: 2px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-quest-bg);
+    color: var(--color-quest-text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+/* Medieval Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A0F0A;
+  border-left: 1px solid #3d2417;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5c3b25;
+  border: 1px solid #CA8A04;
+  border-radius: var(--radius-quest);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #CA8A04;
+}
+
+/* Layered Medieval Cards with subtle gold border and glow */
+.quest-card {
+  background: #2C1A10;
+  border: 1px solid rgba(202, 138, 4, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(202, 138, 4, 0.05);
+  border-radius: var(--radius-quest);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.quest-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(202, 138, 4, 0.6), transparent);
+}
+
+.quest-card:hover {
+  border-color: rgba(202, 138, 4, 0.9);
+  box-shadow: 0 6px 25px rgba(202, 138, 4, 0.15), inset 0 0 12px rgba(202, 138, 4, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Decorative Gold Trim Lines */
+.gold-trim {
+  position: relative;
+  border-bottom: 2px solid #CA8A04;
+  box-shadow: 0 2px 4px rgba(202, 138, 4, 0.2);
+}
+
+.gold-trim::after {
+  content: '♦';
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2C1A10;
+  color: #CA8A04;
+  font-size: 11px;
+  padding: 0 8px;
+  font-family: serif;
+}
+
+/* Medieval Buttons with gold-accent and interactive elements */
+.quest-btn-primary {
+  background: linear-gradient(180deg, #CA8A04 0%, #A16207 100%);
+  color: #1A0F0A;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  border: 1px solid #EAB308;
+  border-radius: var(--radius-quest);
+  box-shadow: 0 2px 6px rgba(202, 138, 4, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.quest-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #EAB308 0%, #CA8A04 100%);
+  box-shadow: 0 4px 12px rgba(202, 138, 4, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+}
+
+.quest-btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(202, 138, 4, 0.2);
+}
+
+.quest-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Secondary Button - Dark red wax / crimson theme */
+.quest-btn-secondary {
+  background: linear-gradient(180deg, #991B1B 0%, #7F1D1D 100%);
+  color: #F5E6D3;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  border: 1px solid #EF4444;
+  border-radius: var(--radius-quest);
+  box-shadow: 0 2px 6px rgba(153, 27, 27, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.quest-btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #B91C1C 0%, #991B1B 100%);
+  box-shadow: 0 4px 12px rgba(153, 27, 27, 0.5);
+  transform: scale(1.02);
+}
+
+/* Outline / Gold Accent Border Button */
+.quest-btn-outline {
+  background: rgba(44, 26, 16, 0.6);
+  color: #CA8A04;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  border: 1px solid #CA8A04;
+  border-radius: var(--radius-quest);
+  box-shadow: inset 0 0 5px rgba(202, 138, 4, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.quest-btn-outline:hover:not(:disabled) {
+  background: rgba(202, 138, 4, 0.1);
+  color: #EAB308;
+  border-color: #EAB308;
+  box-shadow: 0 0 10px rgba(202, 138, 4, 0.2), inset 0 0 8px rgba(202, 138, 4, 0.1);
+}
+
+/* Parchment Accent Box */
+.parchment-box {
+  background-color: #F5E6D3;
+  color: #2C1A10;
+  border: 2px solid #CA8A04;
+  border-radius: var(--radius-quest);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(44, 26, 16, 0.15);
+  position: relative;
+}
+
+.parchment-box::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px dashed rgba(44, 26, 16, 0.3);
+  pointer-events: none;
+}
+
+/* Progress bar / health bar style */
+.quest-progress-track {
+  background: #1A0F0A;
+  border: 1px solid #452a1a;
+  border-radius: var(--radius-quest);
+  height: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.quest-progress-fill {
+  background: linear-gradient(90deg, #A16207 0%, #CA8A04 50%, #EAB308 100%);
+  height: 100%;
+  border-radius: var(--radius-quest);
+  box-shadow: 0 0 8px rgba(202, 138, 4, 0.6);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quest-progress-fill-secondary {
+  background: linear-gradient(90deg, #7F1D1D 0%, #991B1B 50%, #EF4444 100%);
+  height: 100%;
+  border-radius: var(--radius-quest);
+  box-shadow: 0 0 8px rgba(153, 27, 27, 0.6);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quest-progress-fill-success {
+  background: linear-gradient(90deg, #14532D 0%, #22C55E 100%);
+  height: 100%;
+  border-radius: var(--radius-quest);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Inputs & Form Fields in parchment-surface style */
+.quest-input {
+  background: #1F120A;
+  color: #F5E6D3;
+  border: 1px solid #5c3b25;
+  border-radius: var(--radius-quest);
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.quest-input:focus {
+  outline: none;
+  border-color: #CA8A04;
+  box-shadow: 0 0 8px rgba(202, 138, 4, 0.25);
+  background: #25160C;
+}
+
+.quest-select {
+  background: #1F120A;
+  color: #F5E6D3;
+  border: 1px solid #5c3b25;
+  border-radius: var(--radius-quest);
+  font-family: var(--font-sans);
+}
+
+.quest-select:focus {
+  outline: none;
+  border-color: #CA8A04;
+  box-shadow: 0 0 8px rgba(202, 138, 4, 0.25);
+}
+
+/* Dynamic glow effects */
+.gold-glow {
+  text-shadow: 0 0 10px rgba(202, 138, 4, 0.6);
+}
+
+.red-glow {
+  text-shadow: 0 0 10px rgba(153, 27, 27, 0.8);
+}
